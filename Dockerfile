@@ -12,8 +12,6 @@ ENV WEB_DOCUMENT_ROOT=/app \
     WEB_PHP_SOCKET=""
 ENV SERVICE_NGINX_CLIENT_MAX_BODY_SIZE="50m"
 
-COPY conf/ /opt/docker/
-
 RUN set -x \
     # Install nginx
     && apk-install \
