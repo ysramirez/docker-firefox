@@ -3,7 +3,7 @@
 # VERSION               0.1
 # DOCKER-VERSION        0.2
 
-from	ubuntu:18.04
+from	alpine:3.15
 # make sure the package repository is up to date
 # run	echo "deb http://archive.ubuntu.com/ubuntu/dists/xenial" > /etc/apt/sources.list
 run	apt-get update
