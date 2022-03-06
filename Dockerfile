@@ -5,7 +5,7 @@
 
 from	ubuntu:18.04
 # make sure the package repository is up to date
-run	echo "deb http://archive.ubuntu.com/ubuntu/dists/bionic main universe" > /etc/apt/sources.list
+run	echo "deb http://archive.ubuntu.com/ubuntu/dists/bionic" > /etc/apt/sources.list
 run	apt-get update
 
 # Install vnc, xvfb in order to create a 'fake' display and firefox
