@@ -1,17 +1,24 @@
-# Firefox over VNC
-#
-# VERSION               0.1
-# DOCKER-VERSION        0.2
+#+++++++++++++++++++++++++++++++++++++++
+# Dockerfile for webdevops/nginx:alpine
+#    -- automatically generated  --
+#+++++++++++++++++++++++++++++++++++++++
 
-from	alpine:3.15
-# make sure the package repository is up to date
-# run	echo "deb http://archive.ubuntu.com/ubuntu/dists/xenial" > /etc/apt/sources.list
-run	apt-get update
+FROM webdevops/base:alpine
 
-# Install vnc, xvfb in order to create a 'fake' display and firefox
-run	apt-get install -y x11vnc xvfb firefox
-run	mkdir /.vnc
-# Setup a password
-run	x11vnc -storepasswd 1234 ~/.vnc/passwd
-# Autostart firefox (might not be the best way to do it, but it does the trick)
-run	bash -c 'echo "firefox" >> /.bashrc'
+ENV WEB_DOCUMENT_ROOT=/app \
+    WEB_DOCUMENT_INDEX=index.php \
+    WEB_ALIAS_DOMAIN=*.vm \
+    WEB_PHP_TIMEOUT=600 \
+    WEB_PHP_SOCKET=""
+ENV SERVICE_NGINX_CLIENT_MAX_BODY_SIZE="50m"
+
+COPY conf/ /opt/docker/
+
+RUN set -x \
+    # Install nginx
+    && apk-install \
+        nginx \
+    && docker-run-bootstrap \
+    && docker-image-cleanup
+
+EXPOSE 80 443
